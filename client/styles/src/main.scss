@@ -1,0 +1,924 @@
+@import "reset"; // reset default browser styling
+@import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
+@import "variables";
+@import "mixins";
+
+body {
+	min-width: 970px;
+}
+
+[v-cloak] {
+  display:none;
+}
+
+.user-form {
+	//display: none;
+	background: #f6f8f9; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ); /* IE6-9 */
+
+	padding-top: 10px;
+	padding-bottom: 5px;
+	margin: auto;
+    margin-top: 20px;
+	width: 100%;
+	border: 1px solid rgba(0,0,0, .1);
+	//-webkit-box-shadow: -4px 5px 5px 0px rgba(50, 50, 50, 0.1);
+    //-moz-box-shadow:   -4px 5px 5px 0px rgba(50, 50, 50, 0.1);
+    //box-shadow:   -4px 5px 5px 0px rgba(50, 50, 50, 0.1);
+    z-index: 2;
+    position: relative;
+
+    i {
+    	position: absolute;
+    	right: 15px;
+    	font-family: Arial;
+    	font-size: 10px;
+    	cursor: pointer;
+    	font-size: 12px;
+    	top: 7px;
+    }
+
+	label {
+		position: relative;
+		top: -3px;
+		padding-left: 40px;
+		font-size: 12px;
+		display: block;
+		margin-top: 10px;
+		font-family: Arial;
+	}
+
+	input {
+		margin-top: 10px;
+		display: block;
+		margin: auto;
+	}
+
+	input[type="submit"] {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+
+}
+
+header {
+		width: 970px;
+		margin: auto;
+		text-align: center;
+	h1 {
+		padding-top: 15px;
+		font-size: 40px;
+		font-family: $headerFont;
+	}
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	font-family: $mainFont;
+	right: 0;
+}
+
+.container {
+	position: fixed;
+	height: 100%;
+	min-width: 1300px;
+	top: calc(50% - 250px);
+	left: calc(50% - 650px);
+}
+
+.cont-secret {
+	background: url("../../images/secret.png");
+	background-repeat: repeat;
+	width: 100%;
+	height: 100%;
+	background-size: 10% auto;
+}
+
+.control-panel {
+	float: left;
+	margin-right: 105px;
+
+	.card-info {
+		padding-top: 15px;
+		font-family: $mainFont;
+
+		span {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 14px;
+		}
+
+		b {
+			font-weight: 600;
+		}
+	}
+
+	table {
+		td {
+			border: 1px solid rgb(50, 103, 122);
+			button {
+				width: 100%;
+			}
+		}
+	}
+
+	button {
+		background: rgb(64,149,185);
+		color: white;
+		font-size: 14px;
+		cursor: pointer;
+
+		border: none;
+		padding: 10px 15px 10px 15px;
+
+		&:hover {
+				-webkit-box-shadow: -1px -1px 5px 0px rgba(50, 50, 50, 1);
+                -moz-box-shadow:    -1px -1px 5px 0px rgba(50, 50, 50, 1);
+				box-shadow:         -1px -1px 5px 0px rgba(50, 50, 50, 1);
+			}
+
+		&:active {
+				-webkit-box-shadow: inset -1px -1px 10px 1px rgba(50, 50, 50, .3);
+                -moz-box-shadow:    inset -1px -1px 10px 1px rgba(50, 50, 50, .3);
+                box-shadow:         inset -1px -1px 10px 1px rgba(50, 50, 50, .3);
+			}		
+	}
+
+}
+
+.cash-machine {
+	background: black;
+	float: left;
+	margin-right: 50px;
+	width: 600px;
+	@include border-radius(15px);
+	height: 600px;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#292929+0,3a3a3a+30,3a3a3a+70,292929+100 */
+	background: #292929; /* Old browsers */
+	background: -moz-linear-gradient(left,  #292929 0%, #3a3a3a 30%, #3a3a3a 70%, #292929 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #292929 0%,#3a3a3a 30%,#3a3a3a 70%,#292929 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #292929 0%,#3a3a3a 30%,#3a3a3a 70%,#292929 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#292929', endColorstr='#292929',GradientType=1 ); /* IE6-9 */
+
+	.screen {
+		padding-left: 15px;
+		padding-top: 10px;
+		padding-right: 15px;
+		overflow: hidden;
+		
+		.buttons {
+			position: absolute;
+			bottom: 10px;
+			text-align: center;
+		}
+
+		.button-item {
+			width: 35px;
+			height: 35px;
+			margin-left: 7px;
+			margin-top: 15px;
+			cursor: pointer;
+			outline: 1px solid #000;
+			background: rgb(224,224,224);
+
+			&:hover {
+				-webkit-box-shadow: -1px -1px 10px 0px rgba(50, 50, 50, 1);
+                -moz-box-shadow:    -1px -1px 10px 0px rgba(50, 50, 50, 1);
+				box-shadow:         -1px -1px 10px 0px rgba(50, 50, 50, 1);
+			}
+
+			&:active {
+				-webkit-box-shadow: inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+                -moz-box-shadow:    inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+                box-shadow:         inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+			}
+
+			&:after {
+				content: "";
+				display: block;
+				background: url("../../images/arrow.png");
+				height: 35px;
+				width: 35px;
+				background-size: 100% auto;
+			}
+		}
+
+		.left-panel {
+			width: 50px;
+			height: 250px;
+			float: left;
+			position: relative;
+			background: rgb(224,224,224);
+			border-top-left-radius: 5px;
+			border-bottom-left-radius: 5px;
+
+			.button-item::after {
+				position: relative;
+				left: 2px;
+			}
+		}
+
+		.right-panel {
+			float: right;
+			width: 50px;
+			position: relative;
+			height: 250px;
+			background: rgb(224,224,224);
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+
+			.button-item::after {
+				position: relative;
+				right: 2px;
+				transform: rotate(180deg);
+			}
+		}
+
+		.screen-container {
+			float: left;
+
+			width: calc(100% - 100px);
+			border-top: 1px solid rgba(0,0,0,.3);
+			border-bottom: 2px solid rgba(0,0,0,.3);
+			height: 250px;
+			background-image: url(../../images/screen-bg.jpg);
+			background-size: 100% auto;
+			box-sizing: border-box;
+			padding: 15px;
+			padding-top: 30px;
+
+			p {
+				font-family: $screenFont;
+				font-size: 16px;
+				text-transform: uppercase;
+				text-align: center;
+				color: rgb(244,244,244);
+			}
+
+			.loading {
+				.bank-ad {
+					background-image: url("../../images/bank-ad1.jpg");
+					width: 150px;
+					margin-top: 40px;
+					float: left;
+					height: 120px;
+					background-size: 100% auto;
+				}
+
+				span {
+					    float: left;
+    					width: 265px;
+    					text-align: justify;
+    					color: rgb(244,244,244);
+    					margin-top: 40px;
+    				    font-family: $screenFont;
+    					margin-left: 20px;
+    					font-size: 14px;
+    					line-height: 1.7;
+				}
+			}
+
+			.connection-error {
+				p {
+					margin-top: 20px;
+				}
+
+				span {
+					display: block;
+					font-family: $screenFont;
+					text-align: center;
+					margin-top: 20px;
+					font-size: 100px;
+				    color: rgb(244,244,244);
+				    
+	
+				}
+			}
+
+			.loading-img {
+				background: url("../../images/spinner.gif");
+				width: 60px;
+				height: 60px;
+				background-size: 100% auto;
+				margin: auto;
+				margin-top: 50px;
+			}
+
+			.inside-button {
+				position: absolute;
+				font-family: $screenFont;
+				color: rgb(244,244,244);
+				font-size: 14px;
+			}
+
+			.inside-button.l1 {
+				top: 32px;
+				left: 0;
+			}
+
+			.inside-button.l2 {
+				top: 85px;
+				left: 0;
+			}
+
+			.inside-button.l3 {
+				bottom: 50px;
+				left: 0;
+
+			}
+
+			.inside-button.l4 {
+				bottom: 0;
+				left: 0;
+			}
+
+			.inside-button.r1 {
+				top: 32px;
+				right: 0;
+			}
+
+			.inside-button.r2 {
+				top: 85px;
+				right: 0;
+			}
+
+			.inside-button.r3 {
+				bottom: 50px;
+				right: 0;
+
+			}
+
+			.inside-button.r4 {
+				bottom: 0;
+				right: 0;
+			}
+
+			.second-screen {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				text-align: left;
+
+				.second-screen-error {
+					.sad {
+						background: url("../../images/sad.png");
+						width: 140px;
+						height: 140px;
+						margin: auto;
+						margin-top: 25px;
+						opacity: .9;
+						background-size: 100% auto;
+					}
+				}
+			}
+
+			.third-screen {
+				.welcome {
+					font-family: $screenFont;
+					display: block;
+					margin: auto;
+					text-align: center;
+					font-size: 16px;
+					padding-top: 20px;
+					padding-bottom: 20px;
+					color: rgb(244,244,244);
+				}
+
+				p {
+					width: 115px;
+					margin: auto;
+				}
+
+				.pin {
+					text-align: center;
+					position: relative;
+					.pin-help-block {
+						position: absolute;
+   						left: calc(50% - 24px);
+    					top: 40px;
+						.pin_num-help {
+							display: inline-block;
+							margin: auto;
+							width: 11px;
+							border-bottom: 1px solid rgb(244,244,244);
+						}
+					}
+					.pin-block {
+						position: absolute;
+   						left: calc(50% - 24px);
+    					top: calc(74%);
+					}
+					.pin_num {
+						display: inline-block;
+						margin: auto;
+						color: rgb(244,244,244);
+						font-family: $screenFont;
+						margin-top: 35px;
+					}
+				}
+			}
+
+			.fourth-screen {
+				width: 100%; 
+				height: 100%;
+				position: relative;
+				p {
+					font-size: 24px;
+					margin: auto;
+					width: 240px;
+				}
+
+				.secret {
+					height: 100%;
+					position: relative;
+				}
+
+				.num {
+					display: block;
+					color: rgb(244,244,244);
+					font-size: 24px;
+					padding-top: 5px;
+					text-align: center;
+					font-family: $screenFont;
+				}
+
+				.atm-menu {
+					p {
+						font-size: 16px;
+					}
+				}
+			}
+
+			.fifth-screen {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+
+			.sixth-screen {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+
+			.seventh-screen {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				
+				div:nth-of-type(2) {
+					p {
+						padding-top: 35px;
+					}
+
+				}
+
+				span:nth-of-type(1) {
+					display: block;
+					text-align: center;
+					color: rgb(244,244, 244);
+					padding-top: 5px;
+					font-family: $screenFont;
+					font-size: 24px;
+				}
+			}
+
+			.eighth-screen {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+		}
+	}
+}
+
+.cash-machine.secret {
+	animation:animation_box 7s ease-in-out alternate infinite;
+	position: relative;
+	z-index: 9999;
+
+		@keyframes animation_box {
+  			0% {
+  				transform: rotate(30deg);
+  				left: 30px;
+  			}
+  			
+  			30% {
+    			transform: rotate(60deg);
+    			right: 250px;
+    			bottom: 100px;
+  			}
+  			
+  			40% {
+  				background-color: #32CD32;
+  				bottom: 40px;
+  				transform: rotate(180deg);
+  			}
+
+  			60%{
+    			background:#f0b7a1;
+    			transform: rotate(-60px);
+  			}
+
+  			70% {
+  				right: 0;
+  				background-color: yellow;
+  			}
+
+  			80% {
+  				transform: rotate(-180deg);
+  				left: 400px;
+  			}
+
+  			100%{
+    			background:#3f4c6b;
+    			top: -200px;
+  			}
+	}
+}
+
+
+.for-cash {
+	width: 70%;
+	margin: auto;
+	background: url("../../images/cash.png");
+	background-size: 100% auto;
+	height: 55px;
+	margin-top: 20px;	
+}
+
+.cash-machine-card {
+	float: left;
+	@include border-radius(15px);	
+	width: 200px;
+	height: 600px;
+	background: #292929; /* Old browsers */
+	background: -moz-linear-gradient(left,  #292929 0%, #3a3a3a 30%, #3a3a3a 70%, #292929 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #292929 0%,#3a3a3a 30%,#3a3a3a 70%,#292929 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #292929 0%,#3a3a3a 30%,#3a3a3a 70%,#292929 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#292929', endColorstr='#292929',GradientType=1 ); /* IE6-9 */	
+
+	.for-card {
+		background: url("../../images/for-card.png");
+		width: 90%;
+		margin: auto;
+		background-size: 100% auto;
+		margin-top: 50px;
+		height: 38px;
+	}
+
+	.for-card2 {
+		background: url("../../images/for-card2.png");
+		width: 90%;
+		margin: auto;
+		background-size: 100% auto;
+		margin-top: 30px;
+		position: relative;
+		height: 170px;
+
+		.active {
+			.credit-card-img {
+				animation: example 2s linear;
+				animation-fill-mode: forwards;
+
+				@keyframes example {
+				from {
+					height: 140px;
+					background-position: 0 0;
+				}
+  				to {
+					height: 0;
+    				background-position: 0 -140px;
+  				}
+  			  }
+
+ 
+			}
+		 }
+
+		 .non-active {
+			.credit-card-img {
+				animation: example2 2s linear;
+				animation-fill-mode: forwards;
+
+		 		@keyframes example2 {
+					from {
+						height: 0;
+						background-position: 0 -140px;
+					}
+  					to {
+						height: 140px;
+    					background-position: 0 0;
+  					}
+  			
+		 	  	}	
+		 	  }
+		 }
+
+		.credit-card-img {
+			position: absolute;
+			top: 90px;
+			left: 35px;
+			background: url("../../images/credit-card.png");
+			width: 150px;
+			height: 140px;
+			background-size: 80% auto;
+			background-repeat: no-repeat;
+		}
+
+		
+
+		.insert-arrow {
+			width: 180px;
+			height: 180px;
+			position: relative;
+			top: 100px;
+			right: 7px;
+			border: 7px solid rgba(24,163,249, .7);
+			@include border-radius(100px);
+			cursor: pointer;
+
+			.up-arrow {
+				background: url("../../images/uparrow.png");
+				height: 180px;
+				position: relative;
+				background-position: 0 -35px;
+				width: 180px;
+				animation: fontbulger 1s infinite;
+				//animation-direction: alternate;
+	
+				background-size: 100% auto;
+			}
+
+			@keyframes fontbulger {
+  			0% {
+    			top: 0;
+  			}
+  			50% {
+    			top: 10px;
+  			}
+  			100% {
+    			top: 0;
+  			}
+		 }
+		}
+	}
+
+	.visa-master {
+		background: url("../../images/visa-mastercard.png");
+		margin: auto;
+		margin-top: 140px;
+		width: 80px;
+		height: 25px;
+		background-size: 100% auto;
+	}
+}
+
+.tab-container {
+	width: 400px;
+	background: rgb(51,51,51);
+	margin: auto;
+	border: 1px solid rgba(0,0,0,.2);
+	@include border-radius(10px);
+	overflow: hidden;
+	margin-top: 10px;
+
+	.buttons-panel {
+		width: 160px;
+		margin: auto;
+		padding: 15px;
+		float: left;
+		&-item {
+			display: inline-block;
+			height: 40px;
+			width: 40px;
+			cursor: pointer;
+			font-size: 24px;
+			font-family: $mainFont;
+			line-height: 1.7;
+			text-align: center;
+			margin-left: 10px;
+			margin-bottom: 10px;
+			background: rgb(223,223,223);
+			@include no-select;
+
+			&:active {
+				-webkit-box-shadow: inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+                -moz-box-shadow:    inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+                box-shadow:         inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+			}
+
+			&:hover {
+				background: rgb(242,242,242);
+			}
+		}
+	}
+
+	.buttons-panel2 {
+		float: left;
+		margin-left: 30px;
+		padding: 15px;
+
+		&-item {
+			font-family: $mainFont;
+			width: 130px;
+			font-size: 14px;
+			line-height: 2.8;
+			box-sizing: border-box;
+			padding-left: 11px;
+			cursor: pointer;
+			height: 40px;
+			margin-bottom: 10px;
+			padding-right: 10px;
+			@include no-select;
+			background: rgb(223,223,223);
+
+			&:active {
+				-webkit-box-shadow: inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+                -moz-box-shadow:    inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+                box-shadow:         inset -1px -1px 10px 3px rgba(50, 50, 50, .3);
+			}
+
+			&:after {
+				content: "";
+				display: block;
+				margin-right: 3px;
+				@include border-radius(3px);
+				float: right;
+				width: 25px;
+				height: 25px;
+				margin-top: 7px;
+			}
+
+			&:hover {
+				background: rgb(242,242,242);
+			}
+
+		}
+
+
+		&-item:first-child {
+			&:after {
+				background: rgb(189, 38, 27);
+			}
+		}
+
+		&-item:nth-child(2) {
+			&:after {
+				background: rgb(210,203,0);
+			}
+		}
+
+		&-item:nth-child(3) {
+			&:after {
+				background: rgb(213,213,213);
+			}
+		}
+
+		&-item:nth-child(4) {
+			&:after {
+				background: rgb(53,173,0);
+			}
+		}
+
+	}
+}
+
+.modal {
+	position: fixed;
+	//display: none;
+	z-index: 3;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right:: 0;
+	background: rgba(0,0,0, .7);
+
+	.credit-accept-wrap {
+		width: 100%;
+		text-align: center;
+		clear: both;
+		position: relative;
+		top: 50px;
+	}
+
+	#credit-accept {
+		background: linear-gradient(180deg,#e9f8ff 0,#b7ddf2 100%);	
+		padding: 10px 30px 10px 30px;
+		cursor: pointer;
+		color: #000;
+
+	}
+
+	.dialog {
+		width: 400px;
+		height: 200px;
+		position: fixed;
+		background: linear-gradient(180deg,#e9f8ff 0,#b7ddf2 100%);
+		@include border-radius(1rem);
+		left: calc(50% - 200px);
+		top: calc(50% - 86px);
+		padding: 15px;
+		font-family: $mainFont;
+		margin: auto;
+		text-align: center;
+
+		.error-wrap {
+			font-size: 12px;
+			position: absolute;
+			left: 30px;
+			bottom: 30px;
+			//display: none;
+			color: $errorColor;
+		}
+
+		.close-dialog {
+			display: block;
+			font-family: "Roboto";
+			width: 25px;
+			height: 25px;
+			position: absolute;
+			@include no-select;
+			top: 0;
+			right: -50px;
+			cursor: pointer;
+			padding-top: 4px;
+			background: rgba(255, 255, 255, .8);
+			box-sizing: border-box;
+
+			&:hover {
+				background: #fff;
+			}
+		}
+
+		h1 {
+			text-align: center;
+			padding-top: 10px;
+			font: {
+				family: $mainFont;
+				size: 18px;
+			}
+		}
+
+		input {
+			background-color: #dfe3e5;
+			background: linear-gradient(180deg,#d4d9dc 0,#dfe3e5 100%);
+			box-shadow: 0 2px 2px 0 rgba(75,75,75,.15) inset,0 2px 0 0 #fff;
+			padding: 0 1rem;
+			@include border-radius(4px);
+			border: 1px solid #b8bfc7;
+			height: 30px;
+			margin-top: 15px;
+			width: 85%;
+			text-align: center;
+			font: {
+				family: $mainFont;
+				size: 18px;
+				weight: bold;
+			}
+		}
+
+		.exp-block {
+			float: right;
+			margin-top: 20px;
+			margin-right: 15px;
+			width: 237px;
+			span {
+				font: {
+					family: "Roboto";
+					size: 16px;
+				}
+			}
+
+			input {
+				width: 20px;
+			}
+
+			.cvv {
+				float: right;
+				display: block;
+
+				input {
+					width: 30px;
+				}
+			}
+		}
+
+
+	}
+}
+
+@media (max-width: 1375px) {
+	body {
+		zoom: 85%;
+
+		.exp-block {
+			width: 63.4% !important;
+		}
+	}
+}

@@ -1,0 +1,165 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@font-face {
+  font-family: 'chavaregular';
+  src: url("../src/fonts/chava-webfont.eot");
+  src: url("../src/fonts/chava-webfont.eot?#iefix") format("embedded-opentype"), url("../src/fonts/chava-webfont.woff2") format("woff2"), url("../src/fonts/chava-webfont.woff") format("woff"), url("../src/fonts/chava-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'source_code_proregular';
+  src: url("../src/fonts/sourcecodepro-webfont.eot");
+  src: url("../src/fonts/sourcecodepro-webfont.eot?#iefix") format("embedded-opentype"), url("../src/fonts/sourcecodepro-webfont.woff2") format("woff2"), url("../src/fonts/sourcecodepro-webfont.woff") format("woff"), url("../src/fonts/sourcecodepro-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+body {
+  height: 100vh;
+  font-family: source_code_proregular, chavaregular, "Courier New", Courier, monospace;
+  font-size: 12px;
+  background-color: #050505;
+  color: #fff;
+  padding: 0 5px 0 5px;
+  overflow-y: scroll;
+  cursor: text;
+  text-align: left; }
+
+.wrapper {
+  text-align: center; }
+
+.no-access {
+  font-family: chavaregular;
+  font-size: 620%;
+  padding-top: 20px;
+  color: #fff; }
+
+.error {
+  width: 420px;
+  height: 420px;
+  margin: 20px auto;
+  text-align: center;
+  border: 15px solid red;
+  border-radius: 50%;
+  background: url("../../images/error.gif") center center no-repeat;
+  background-size: 277px 300px;
+  position: relative; }
+  .error-line {
+    width: 105%;
+    height: 25px;
+    transform: rotate(135deg);
+    background-color: red;
+    position: absolute;
+    left: -13px;
+    top: 195px; }
+
+.backerr {
+  position: absolute;
+  top: calc(50% - 100px);
+  display: block;
+  color: white;
+  font-size: 200px;
+  float: left;
+  text-decoration: none;
+  text-align: center;
+  margin-left: 40px; }
+  .backerr:hover {
+    text-decoration: none;
+    color: white;
+    top: calc(50% - 125px);
+    font-size: 250px; }
+
+.console-line {
+  width: 100%;
+  line-height: 17px; }
+
+.console-time {
+  color: #008C23; }
+  .console-time:after {
+    content: ' : ';
+    display: inline-block; }
+
+.console-user {
+  color: #008C23; }
+  .console-user:after {
+    content: ':~#';
+    display: inline-block; }
+  .console-user-saved:after {
+    content: '^';
+    display: inline-block; }
+
+.console-text {
+  margin-left: 5px; }
+
+input[type=text] {
+  width: 80%;
+  font-family: source_code_proregular, chavaregular, "Courier New", Courier, monospace;
+  font-size: 12px;
+  background-color: #050505;
+  border: none;
+  color: #fff;
+  padding-left: 5px; }
+
+input[type=text]:focus {
+  border: none;
+  outline: none; }
+
+.bigAuthor {
+  display: none;
+  font-family: chavaregular;
+  font-size: 20px;
+  margin-left: 50px; }
+
+.cattydiv {
+  width: 150px;
+  height: 115px;
+  position: relative;
+  left: -400px; }
+  .cattydiv .cat {
+    width: 150px;
+    height: 115px; }

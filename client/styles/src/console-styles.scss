@@ -1,0 +1,135 @@
+@import "reset"; // reset default browser styling
+@import "console-fonts";//add fonts
+
+$colorconsoleleft: #008C23;
+$fontfamily: source_code_proregular, chavaregular, 'Courier New', Courier, monospace;
+
+
+body {
+	height: 100vh;
+	font-family: $fontfamily;
+	font-size: 12px;
+	background-color: #050505;
+	color: #fff;
+	padding: 0 5px 0 5px;
+	overflow-y: scroll;
+	cursor: text;
+	text-align: left;
+}
+
+.wrapper {
+	text-align: center;
+}
+
+.no-access {
+	font-family: chavaregular;
+	font-size: 620%;
+	padding-top: 20px;
+	color: #fff;	
+}
+
+.error {
+	width: 420px;
+	height: 420px;
+	margin: 20px auto;
+	text-align: center;
+	border: 15px solid red;
+	border-radius: 50%;
+	background: url('../../images/error.gif') center center no-repeat;
+	background-size: 277px 300px;
+	position: relative;
+	&-line {
+		width: 105%;
+		height: 25px;
+		transform: rotate(135deg);
+		background-color: red;
+		position: absolute;
+		left: -13px;
+    	top: 195px;
+	}
+}
+.backerr {
+	position: absolute;
+	top: calc(50% - 100px);
+	display: block;
+	color: white;
+	font-size: 200px;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	margin-left: 40px;
+	&:hover {
+		text-decoration: none;
+		color: white;
+		top: calc(50% - 125px);
+		font-size: 250px;
+	}
+}
+
+
+.console {
+	&-line {
+		width: 100%;
+		line-height: 17px;
+	}
+	
+	&-time {
+		color: $colorconsoleleft;
+		&:after {
+			content: ' : ';
+			display: inline-block;
+		}
+	}
+	&-user {
+		color: $colorconsoleleft;
+		&:after {
+			content:  ':~#';
+			display: inline-block;
+			}
+		&-saved {
+			&:after {
+			content:  '^';
+			display: inline-block;
+			}
+		}
+	}
+	&-text {
+		margin-left: 5px;
+	}
+}
+
+input[type=text] {
+	width: 80%;
+	font-family: $fontfamily;
+	font-size: 12px;
+	background-color: #050505;
+	border: none;
+	color: #fff;
+	padding-left: 5px;
+}
+
+input[type=text]:focus {
+	border: none;
+	outline: none;
+}
+
+
+.bigAuthor {
+	display: none;
+	font-family: chavaregular;
+	font-size: 20px;
+	margin-left: 50px;
+}
+
+.cattydiv {
+	width: 150px;
+	height: 115px;
+//	margin-left: 50px;
+	position: relative;
+	left: -400px;
+	.cat {
+		width: 150px;
+		height: 115px;
+	}
+
+}

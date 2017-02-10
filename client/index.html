@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ATM</title>
+    <link rel="stylesheet" type="text/css" href="http://mayst.paypress.pro/client/styles/dist/main.css">
+    <script type="text/javascript" src="http://mayst.paypress.pro/client/js/libs/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="http://mayst.paypress.pro/client/js/libs/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+</head>
+<body >
+	<header>
+		<h1>ATM</h1>
+	</header>
+
+	<div class="container" >
+		 <div :class="{'cont-secret ': secret}">
+
+		<div class="control-panel" v-show = "!secret">	
+			<table>
+				<tr>
+					<td>
+						<button @click="showModal = true">New credit card</button>
+					</td>
+					<td>
+						<button @click="adminConsole()">Admin console</button>
+					</td>
+				</tr>
+			</table>
+			<div class="card-info" v-show="result" v-cloak>
+				<span>Card number: <b>{{result.cardNumber}}</b></span>
+				<span>Expiration date: <b>{{result.exp1}} / {{result.exp2}}</b></span>
+				<span>CVV: <b>{{result.cvv}}</b></span>
+			</div>
+			<div class="user-form" v-if="adm" v-cloak>
+				<i @click="adm = false">x</i>
+				<form method="post" action="../back/requests/console_log.php">
+					<label for="user">Login:</label>
+					<input type="text" id="name" name="user" required />
+					<label for="password" name="password">Password:</label>
+					<input type="password" id="password" name="password" required />
+					<input type="submit" name="send" value="Войти"/>
+				</form>
+			</div>
+			<card-dialog v-if="showModal" @credit-card="handleResult" @close="showModal = false"></card-dialog>
+		</div>
+ 		<div class="cash-machine" :class="{ secret: secret}">
+ 			<atm :credit-card="result" @secrt="secrtOn" @remove-card="removeCard" :card="card"></atm>
+ 		</div>
+ 		<div class="cash-machine-card" v-show = "!secret">
+ 			<div class="for-card"></div>
+ 			<div class="for-card2">
+ 				<div v-show="result" v-cloak :class="{ active: card == true, 'non-active': card == false && cardCounter}">
+ 					<div class="credit-card-img" ></div> 
+ 					<div class="insert-arrow" v-show="card == false" @click="insertCard()">
+ 						<div class="up-arrow"></div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 			<div class="visa-master"></div>
+ 		</div>
+ 	</div>
+ 	</div>
+ 	<template id="modal-dialog">
+			<div class="modal" >
+ 				<div class="dialog">
+ 					<i class="close-dialog" @click="$emit('close')">X</i>
+ 					<h1>Card number:</h1>
+ 					<input autofocus id="input-credit" v-model="cardNumber" @keyup="creditCardValidation()" type="tel" maxlength="19" />
+ 					<div class="exp-block">
+	  					<span>Expiration date:</span>		
+	  					<input  v-model="exp1" @keypress="expValidation($event)" class="input-credit-exp" type="text" name="" maxlength="2" />	
+		  				<span>/</span>
+	  					<input @keypress="expValidation($event)"   v-model="exp2" class="input-credit-exp" type="text" name="" maxlength="2" />	
+	  					<div class="cvv">
+	  						<span>CVV2</span>
+	  						<input class="input-credit-cvv" @keypress="expValidation($event)" v-model="cvv" type="text" name="" maxlength="3" />
+	  					</div>
+	  					<div v-show="errors" class="error-wrap">Some fields are incorrect!</div>
+ 					</div>
+ 					<div class="credit-accept-wrap">
+	 					<button id="credit-accept" @click="accept()">Accept</button>	
+ 					</div>
+ 				</div>
+ 			</div>
+ 	</template>
+ 	<template id="atm">
+ 		<div>
+ 		<div class="screen">
+ 				<div class="left-panel">
+ 					<div class="buttons">
+ 						<div class="button-item" @click="leftB1()"></div>
+ 						<div class="button-item" @click="leftB2()"></div>
+ 						<div class="button-item" @click="leftB3()"></div>
+  						<div class="button-item" @click="leftB4()"></div>					
+ 					</div>
+ 				</div>
+ 				<div class="screen-container">
+ 					<div v-if="!cardInjected">
+ 						<p>welcome to TBN Bank!</p>
+ 						<br/>
+ 						<p>please, enter your card with magnetic stripe on the right side</p>
+ 					</div>
+ 					<div class="first-screen" v-show="cardInjected">
+ 					<div class="loading" v-show="cardScanning">
+ 						<p>Loading ...</p>
+ 						<div class="bank-ad"></div>
+ 						<span>Welcome to TBN Bank! Our bank always takes care of its customers. If you have any difficulties or suggestions please contact number <b>050 021 24 75</b></span>
+ 					</div>	
+ 						<div class="connection-error" v-show="cardScanningError">
+ 							<p >ATM is not working at the moment! Please, try again later.</p>
+ 							<span>!</span>
+ 						</div>
+ 					</div>
+ 					<div class="second-screen" v-show="dbConnected && screen.second">
+ 						<div class="second-screen-error" v-show="!person">
+ 							<p>Your credit card can not be read! Please insert a valid credit card in an ATM</p>
+ 							<div class="sad"></div>
+ 						</div>
+ 						<p v-show="person">Dear {{person.name}} {{person.surname}}, continuing the work you agree to all terms and conditions of work of our bank. To continue, click on the "Continue" button on the right side of the screen, thank you!</p>
+ 						<span v-show="person" class="inside-button r3">Continue >></span>
+ 					</div>
+ 					<div class="third-screen" v-show="screen.third">
+ 						<div class="loading-third-screen" v-show="loading">
+ 							<p>Loading...</p>
+ 							<div class="loading-img"></div>
+ 						</div>
+ 						<span class="welcome" v-show="!loading">WELCOME!</span>
+ 						<p v-show="!loading">Please enter your pin code</p>
+ 						<div class="pin" v-show="!loading">
+ 						  <div class="pin-help-block">
+ 							<span class="pin_num-help"></span>
+  							<span class="pin_num-help"></span>				
+  							<span class="pin_num-help"></span>
+		  					<span class="pin_num-help"></span>
+		  					</div>
+		  					<div class="pin-block">
+ 								<span class="pin_num">{{pin[0] | mask}}</span>
+  								<span class="pin_num">{{pin[1] | mask}}</span>	
+  								<span class="pin_num">{{pin[2] | mask}}</span>
+		  						<span class="pin_num">{{pin[3] | mask}}</span>
+		  					</div>	
+ 						</div>
+ 					</div>
+ 					<div class="fourth-screen" v-show="screen.fourth">
+ 						<div class="pin-wrong" v-show="!pinCorrect && !secret">
+ 							<p>Wrong PIN! The number of attempts to enter: </p>
+ 							<span class="num">2</span>
+ 							<span class="inside-button r3">Enter PIN >></span>
+ 							<span class="inside-button r4">End session >></span>
+ 						</div>
+ 						<div class="secret" v-if="!pinCorrect && secret">
+ 							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/iyLdoQGBchQ?rel=0&amp;autoplay=1&amp;controls=0&amp;showinfo=0"frameborder="0" allowfullscreen></iframe>
+ 						</div>
+ 						<div class="atm-menu" v-show="pinCorrect">
+ 							<p>Select the operation</p>
+ 							 <span class="inside-button l1"><< Charity</span>
+ 						 	<span class="inside-button l2"><< Additional services</span>
+ 							<span class="inside-button l3"><< Opening accounts</span>
+ 							<span class="inside-button l4"><< Payment for services</span>
+ 						 	<span class="inside-button r1">Balance >></span>
+ 						 	<span class="inside-button r2">Withdraw money >></span>
+ 							<span class="inside-button r3">Personal Information >></span>
+ 							<span class="inside-button r4">Order inquiries >></span>
+ 						</div>
+ 					</div>
+ 					<div class="fifth-screen" v-show="screen.fifth">
+ 						<p>In Development!</p>
+ 						<span class="inside-button l3"><< Back</span>
+ 					</div>
+ 					<div class="sixth-screen" v-show="screen.sixth">
+ 						<p>How to display the balance ?</p>
+ 						<span class="inside-button l3"><< Back</span>
+ 						<span class="inside-button r2">On screen >></span>
+ 						<span class="inside-button r3">On check >></span>
+ 					</div>
+ 					<div class="seventh-screen" v-show="screen.seventh">
+ 					 	<div class="loading-third-screen" v-show="loading && screen.seventh">
+ 							<p>Loading...</p>
+ 							<div class="loading-img"></div>
+ 						</div>
+ 						<div v-show="!loading">
+ 							  <p>Your balance is: </p>
+ 							  <span>20000</span>
+ 							  <span class="inside-button l3"><< Back</span>
+ 						</div>
+ 					</div>
+ 					<div class="eighth-screen" v-show="screen.eighth">
+ 						<div class="loading-third-screen" v-show="loading && screen.eighth">
+ 							<p>Loading...</p>
+ 							<div class="loading-img"></div>
+ 						</div>
+ 						<div v-show="!loading">
+ 							  <p>Take a check on the right. Thank you for using the services of our bank!</p>
+ 							  <span class="inside-button l3"><< End session</span>
+ 							  <span class="inside-button r3">Continue >></span>
+ 						</div>
+ 					</div>
+				</div>
+ 				<div class="right-panel">
+ 				 	<div class="buttons">
+ 						<div class="button-item" @click=rightB1()></div>
+ 						<div class="button-item" @click=rightB2()></div>
+ 						<div class="button-item" @click=rightB3()></div>
+  						<div class="button-item" @click=rightB4()></div>					
+ 					</div>
+ 				</div>
+ 			</div>
+
+ 			<div class="for-cash"></div>
+ 			<div class="tab-container">
+ 				<div class="buttons-panel">
+ 					<div class="buttons-panel-item" @click="b1()">1</div>
+ 					<div class="buttons-panel-item" @click="b2()">2</div>
+ 					<div class="buttons-panel-item" @click="b3()">3</div>
+ 					<div class="buttons-panel-item" @click="b4()">4</div>
+ 					<div class="buttons-panel-item" @click="b5()">5</div>
+ 					<div class="buttons-panel-item" @click="b6()">6</div>
+ 					<div class="buttons-panel-item" @click="b7()">7</div>
+ 					<div class="buttons-panel-item" @click="b8()">8</div>
+ 					<div class="buttons-panel-item" @click="b9()">9</div>
+ 					<div class="buttons-panel-item" @click="b_left()">*</div>
+ 					<div class="buttons-panel-item" @click="b0()">0</div>
+ 					<div class="buttons-panel-item" @click="b_right()">#</div>
+ 				</div>
+ 				<div class="buttons-panel2">
+ 					<div class="buttons-panel2-item" @click="removeCard()">Cancel</div>
+ 					<div class="buttons-panel2-item" @click="correction()">Correction</div>
+ 	 				<div class="buttons-panel2-item"></div>
+ 	 				<div class="buttons-panel2-item" @click="enter()">Enter</div>
+			</div>
+ 			</div>
+ 		<div>
+ 	</template>
+ 	<footer>
+ 	 	Сделано крутыми пацанами (какой-то копирайт)
+ 	</footer>
+ 	<script type="text/javascript" src="http://mayst.paypress.pro/client/js/app.js"></script>
+</body>
+</html>
